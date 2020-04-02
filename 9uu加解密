@@ -55,47 +55,43 @@ def md5(sig):
     return result.hexdigest()
 
 def get_html():
+    
+    try:
 
-    url = 'https://alipaydatabase.com/video/lists'
+        url = 'https://alipaydatabase.com/video/lists'
+    
+        for i in range(1,818):
+    
+            sign = md5("devicetype=pc&page={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i,timestamp))
+    
+            data = '{"tag":"","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}'%(timestamp,i,sign)
+    
+            data_enctext = AES_Encrypt(key, str(data),'f%Z4F+qtFh'+v_I)
+    
+            responses = requests.post(url, data={"post-data": data_enctext}, headers={'suffix': v_I},timeout = 0.5).json()
+    
+            data = responses['data']
+            
+            decrypted_i_v ='f%Z4F+qtFh'+ str(responses['suffix'])
+            
+            text_decrypted = AES_Decrypt(key, data,decrypted_i_v)#解密
+            
+            json_Text = (json.loads(text_decrypted))['data']
+            
+            print("\033[31m=\033[0m"*100,'\033[0;36m正在爬{}页\033[0m'.format(i),"\033[31m=\033[0m"*100)
+            
+            for json_text in json_Text:
+                i_d = json_text['id']
+                
+                preview = json_text['thumb_raw']#动态图preview
+                
+                nickname = json_text['title']
+                
+                json_parser(i_d,preview,nickname)
 
-    for a in range(10):
-
-        try:
-
-            for i in range(61,818):#39
-
-                sign = md5("devicetype=pc&page={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i,timestamp))
-
-                data = '{"tag":"","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}'%(timestamp,i,sign)
-
-                data_enctext = AES_Encrypt(key, str(data),'f%Z4F+qtFh'+v_I)
-
-                responses = requests.post(url, data={"post-data": data_enctext}, headers={'suffix': v_I},timeout = 1).json()
-
-                data = responses['data']
-
-                decrypted_i_v ='f%Z4F+qtFh'+ str(responses['suffix'])
-
-                text_decrypted = AES_Decrypt(key, data,decrypted_i_v)#解密
-
-                json_Text = (json.loads(text_decrypted))['data']
-
-                print("\033[31m=\033[0m"*100,'\033[0;36m正在爬{}页\033[0m'.format(i),"\033[31m=\033[0m"*100)
-
-                for json_text in json_Text:
-
-                    i_d = json_text['id']
-
-                    preview = json_text['thumb_raw']#动态图preview
-
-                    nickname = json_text['title']
-
-                    json_parser(i_d,preview,nickname)
-
-        except Exception as k:
-            print('请求函数报错：\n',k)
-            continue
-
+    except Exception as k:
+        
+        print('请求函数报错：\n',k)
 
 def json_parser(i_d,img , name):
 
