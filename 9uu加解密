@@ -55,45 +55,58 @@ def md5(sig):
     return result.hexdigest()
 
 def get_html():
-    
-    try:
-
-        url = 'https://alipaydatabase.com/video/lists'
-    
-        for i in range(1,818):
-    
-            sign = md5("devicetype=pc&page={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i,timestamp))
-    
-            data = '{"tag":"","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}'%(timestamp,i,sign)
-    
-            data_enctext = AES_Encrypt(key, str(data),'f%Z4F+qtFh'+v_I)
-    
-            responses = requests.post(url, data={"post-data": data_enctext}, headers={'suffix': v_I},timeout = 0.5).json()
-    
-            data = responses['data']
-            
-            decrypted_i_v ='f%Z4F+qtFh'+ str(responses['suffix'])
-            
-            text_decrypted = AES_Decrypt(key, data,decrypted_i_v)#解密
-            
-            json_Text = (json.loads(text_decrypted))['data']
-            
-            print("\033[31m=\033[0m"*100,'\033[0;36m正在爬{}页\033[0m'.format(i),"\033[31m=\033[0m"*100)
-            
-            for json_text in json_Text:
-                i_d = json_text['id']
-                
-                preview = json_text['thumb_raw']#动态图preview
-                
-                nickname = json_text['title']
-                
-                json_parser(i_d,preview,nickname)
-
-    except Exception as k:
         
-        print('请求函数报错：\n',k)
+    for i in range(1,818):
+    
+        url = 'https://alipaydatabase.com/video/lists'
 
-def json_parser(i_d,img , name):
+        sign = md5("devicetype=pc&page={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i,timestamp))
+    
+        data = '{"tag":"","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}'%(timestamp,i,sign)
+
+        data_enctext = AES_Encrypt(key, str(data),'f%Z4F+qtFh'+v_I)
+    
+        for a in range(15):
+
+            try:
+
+                responses = requests.post(url, data={"post-data": data_enctext}, headers={'suffix': v_I},timeout = 0.5).json()
+
+                data = responses['data']
+
+                decrypted_i_v ='f%Z4F+qtFh'+ str(responses['suffix'])
+
+                text_decrypted = AES_Decrypt(key, data,decrypted_i_v)#解密
+
+                json_Text = (json.loads(text_decrypted))['data']
+
+                print("\033[1;45m=\033[0m"*35,'\033[0;36m正在爬{}页\033[0m'.format(i),"\033[1;45m=\033[0m"*35)
+                
+                dd = 0
+
+                for json_text in json_Text:
+            
+                    i_d = json_text['id']
+    
+                    preview = json_text['thumb_raw']#动态图preview
+
+                    nickname = json_text['title']
+                    
+                    dd +=1
+
+                    json_parser(i_d,preview,nickname,dd)
+
+                break
+
+            except Exception as k:
+               # continue#break
+                print('\033[31m请求函数报错跳过本次循环\033[0m：\n',k)
+            
+        #    finally:
+          #      print("\033[31mrange(15)函数报错开始下一次循环,第{}页\033[0m".format(i))
+         #       continue
+
+def json_parser(i_d,img , name ,dd):
 
     try:
 
@@ -122,16 +135,20 @@ def json_parser(i_d,img , name):
         # aggregate = '<div><h3<p><a href="{}">{}<img src="{}"width="450" height="450"/></a></p></h3></div>'.format(text_decrypted,name,img)  # 图片样板
 
         analysis_tsa = url.split('/')
+        
         analysis_tsb = analysis_tsa[0:3]
+        
         analysis_tsc = '/'.join(analysis_tsb)
+        
         api = '<a class="chain" href = "{}"target="_blank">接口2</a>'.format(href.replace(analysis_tsc,'https://9uu66.com'))
         api_1 = '<a class="chain" href = "{}"target="_blank">接口3</a>'.format(href.replace(analysis_tsc,'https://daqqzz.com'))
         api_2 = '<a class="chain" href = "{}"target="_blank">接口4</a></div></h2>'.format(href.replace(analysis_tsc,'https://moshequan.com'))
 
         aggregate = '<h2><div><p class="txt">{}</p><img src="{}"><a class="chain" href = "{}"target="_blank">接口1</a>'.format(name , img , href) + api + api_1 + api_2
 
+        print("\n","\033[31m=\033[0m"*33,'\033[0;36m视频{}分割线\033[0m'.format(dd),"\033[31m=\033[0m"*33)
 
-        print(aggregate)
+        print(aggregate+"\n")
 
         vip_api = '''
                 <a class="chain" href = "{}">vip接口1</a>
@@ -145,7 +162,8 @@ def json_parser(i_d,img , name):
             f.write(aggregate+'\n')
 
     except Exception as g:
-        print('解析函数报错：',response,g,'https://eem92.com/video/detail?id='+str(i_d))
+        pass
+        #print('解析函数报错：',response,g,'https://eem92.com/video/detail?id='+str(i_d))
 
 get_html()
 # json_parser()
