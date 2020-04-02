@@ -62,7 +62,7 @@ def get_html():
 
         try:
 
-            for i in range(10,818):#39
+            for i in range(61,818):#39
 
                 sign = md5("devicetype=pc&page={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i,timestamp))
 
@@ -93,8 +93,8 @@ def get_html():
                     json_parser(i_d,preview,nickname)
 
         except Exception as k:
-            print('请求函数报错：\n',responses,'\n',k)
-            break
+            print('请求函数报错：\n',k)
+            continue
 
 
 def json_parser(i_d,img , name):
