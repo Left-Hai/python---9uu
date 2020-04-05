@@ -1,3 +1,5 @@
+1.当前分析的是加密参数
+
 该接口进行了AES/CBC/PKCS7Padding加密
 
 主页请求地址：https://alipaydatabase.com/video/lists
@@ -11,3 +13,8 @@
 sign值进行了md5加密：devicetype=pc&page=页数&timestamp=13位的时间戳&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z
 
 post亲求的data参数{"tag":"","timestamp":13位的时间戳,"devicetype":"pc","page":页数,"encode_sign":"sign值"}
+
+
+2.当前分析的是解密参数
+
+解密的偏移值主要是还是请求
