@@ -12,7 +12,7 @@
 
 (6)sign值进行了md5加密：devicetype=pc&page=页数&timestamp=13位的时间戳&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z
 
-(7)post亲求的data参数{"tag":"","timestamp":13位的时间戳,"devicetype":"pc","page":页数,"encode_sign":"sign值"}
+(7)post请求的data参数{"tag":"","timestamp":13位的时间戳,"devicetype":"pc","page":页数,"encode_sign":"sign值"}
 
 
 2.当前分析的是解密参数
