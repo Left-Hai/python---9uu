@@ -2,7 +2,7 @@
 
 (1)该接口进行了AES/CBC/PKCS7Padding加密
 
-(2)主页请求地址：https://alipaydatabase.com/video/lists
+(2)主页请求地址，这是一个post请求：https://alipaydatabase.com/video/lists
 
 (3)密码：AG+BwcnekYZy$9f7X#b2zdB93brfFMmz
 
