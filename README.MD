@@ -4,7 +4,7 @@
 
 (2)主页请求地址，这是一个post请求：https://alipaydatabase.com/video/lists
 
-(3)密码：AG+BwcnekYZy$9f7X#b2zdB93brfFMmz
+(3)密钥：AG+BwcnekYZy$9f7X#b2zdB93brfFMmz
 
 (4)偏移：(f%Z4F+qtFh)+(六位随机数字和随机字母)//这两括号里面是的值是一个整体
 
