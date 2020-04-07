@@ -8,8 +8,6 @@
 
 from Crypto.Cipher import AES
 
-import pprint
-
 import hashlib
 
 import requests
