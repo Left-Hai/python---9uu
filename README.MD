@@ -1,3 +1,5 @@
+*Crypto模块安装方法：pip install pycryptodome
+
 1.当前分析的是加密参数
 
 (1)该接口进行了AES/CBC/PKCS7Padding加密
