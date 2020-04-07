@@ -1,44 +1,26 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2020/4/7 18:09
 # @Author  : 老飞机
 # @File    : aa.py
-# @Software: win10 Tensorflow1.13.1 python3.6.3
-
-
-# @Time : 2020/4/2 18:32
-
-# @Author : 老飞机
-
-# @File : 9uu分类.py
-
-# @Software: PyCharm
+# @Software: pycharm
 
 from Crypto.Cipher import AES
-
 import hashlib
-
 import requests
-
 import base64
-
 import random
-
 import json
-
 import time
 
 timestamp = str(time.time() * 1000)[0:13]
 
 key = 'AG+BwcnekYZy$9f7X#b2zdB93brfFMmz'
 
-ramde = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
-         "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+ramde = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L","M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 c = random.sample(ramde, 6)
 
 v_I = ''.join(c)
-
 
 # 密钥（key）, 密斯偏移量（iv） CBC模式加密
 
