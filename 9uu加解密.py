@@ -1,27 +1,15 @@
 # @Time : 2020/3/31 16:27 
-
-# @Author : xx
-
+# @Author : 老飞机
 # @File : 9uu.py 
-
 # @Software: PyCharm
 
 from Crypto.Cipher import AES
-
-import pprint
-
 import hashlib
-
 import requests
-
 import base64
-
 import random
-
 import json
-
 import time
-
 timestamp = str(time.time() * 1000)[0:13]
 
 key = 'AG+BwcnekYZy$9f7X#b2zdB93brfFMmz'
