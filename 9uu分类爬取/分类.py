@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/4/7 18:09
+# @Author  : 老飞机
+# @File    : aa.py
+# @Software: win10 Tensorflow1.13.1 python3.6.3
+
+
 # @Time : 2020/4/2 18:32
 
 # @Author : 老飞机
@@ -91,7 +99,7 @@ def with_open():
 
     b = a.read()
 
-    c = json.loads(b)['data']
+    c = json.loads(b)['tags']
 
     for v in c:
         tag = v['key']
@@ -144,11 +152,9 @@ def get_html(tag, name):
 
         url = 'https://alipaydatabase.com/video/lists'
 
-        sign = md5("devicetype=pc&page={}&tag={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format("1", tag,
-                                                                                                           timestamp))
+        sign = md5("devicetype=pc&page={}&tag={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format("1", tag,timestamp))
 
-        data = '{"tag":"%s","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}' % (
-        tag, timestamp, "1", sign)
+        data = '{"tag":"%s","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}' % (tag, timestamp, "1", sign)
 
         data_enctext = AES_Encrypt(key, str(data), 'f%Z4F+qtFh' + v_I)
 
@@ -166,7 +172,13 @@ def get_html(tag, name):
 
             pga -= 1
 
-            responses = requests.post(url, data={"post-data": data_enctext}, headers={'suffix': v_I}).json()
+            signs = md5("devicetype=pc&page={}&tag={}&timestamp={}&6Bf2_kh*P?4tuB*C#@WEVf752x8beCE@uB-Z".format(i, tag,timestamp))
+
+            datas = '{"tag":"%s","timestamp":%s,"devicetype":"pc","page":%s,"encode_sign":"%s"}' % (tag, timestamp, i, signs)
+
+            data_enctexts = AES_Encrypt(key, str(datas), 'f%Z4F+qtFh' + v_I)
+
+            responses = requests.post(url, data={"post-data": data_enctexts}, headers={'suffix': v_I}).json()
 
             data = responses['data']
 
@@ -176,8 +188,7 @@ def get_html(tag, name):
 
             json_Text = (json.loads(text_decrypted))['data']
 
-            print("\033[31m=\033[0m" * 25, '\033[0;36m正在爬{}第{}页,剩余{}页\033[0m'.format(name, i, pga),
-                  "\033[31m=\033[0m" * 25)
+            print("\033[31m=\033[0m" * 25, '\033[0;36m正在爬{}第{}页,剩余{}页\033[0m'.format(name, i, pga),"\033[31m=\033[0m" * 25)
 
             if json_Text != []:
 
@@ -191,7 +202,6 @@ def get_html(tag, name):
                     json_parser(i_d, preview, nickname, name)
 
             else:
-
                 print('到底了', name, responses)
 
     except Exception as l:
@@ -229,21 +239,15 @@ def json_parser(i_d, img, name, file_name):
 
         analysis_tsc = '/'.join(analysis_tsb)
 
-        api = '<a class="chain" href = "{}"target="_blank">接口2</a>'.format(
-            href.replace(analysis_tsc, 'https://9uu66.com'))
+        api = '<a class="chain" href = "{}"target="_blank">接口2</a>'.format(href.replace(analysis_tsc, 'https://9uu66.com'))
 
-        api_1 = '<a class="chain" href = "{}"target="_blank">接口3</a>'.format(
-            href.replace(analysis_tsc, 'https://daqqzz.com'))
+        api_1 = '<a class="chain" href = "{}"target="_blank">接口3</a>'.format(href.replace(analysis_tsc, 'https://daqqzz.com'))
 
-        api_2 = '<a class="chain" href = "{}"target="_blank">接口4</a></div></h2>'.format(
-            href.replace(analysis_tsc, 'https://moshequan.com'))
+        api_2 = '<a class="chain" href = "{}"target="_blank">接口4</a></div></h2>'.format(href.replace(analysis_tsc, 'https://moshequan.com'))
 
-        aggregate = '<h2><div><p class="txt">{}</p><img src="{}"><a class="chain" href = "{}"target="_blank">接口1</a>'.format(
-            name, img, href) + api + api_1 + api_2
+        aggregate = '<h2><div><p class="txt">{}</p><img src="{}"><a class="chain" href = "{}"target="_blank">接口1</a>'.format(name, img, href) + api + api_1 + api_2
 
         deep(file_name, aggregate)
-
-
 
     except Exception as g:
 
@@ -251,12 +255,9 @@ def json_parser(i_d, img, name, file_name):
 
 
 def deep(file_name, aggregate):
-    f = open(file_name + '.html', 'a',encoding='utf-8')  # as f:
-
+    f = open(file_name + '.html', 'a',encoding='utf-8')
     f.write(aggregate + '\n')
-
     print("\033[31m*\033[0m" * 80)
-
     print(aggregate)
 
 
