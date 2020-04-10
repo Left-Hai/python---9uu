@@ -1,4 +1,5 @@
 *Crypto模块安装方法：pip install pycryptodome
+分析思路：https://www.52pojie.cn/thread-1149036-1-1.html
 
 1.当前分析的是加密参数
 
